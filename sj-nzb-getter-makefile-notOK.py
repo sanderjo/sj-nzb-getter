@@ -8,56 +8,12 @@ import os
 
 def getoneline(s,command):
     if command!='':
-        s.send(command+"\r\n")
-    End="\r\n"
-    total_data=[];data=''
-    while True:
-            data=s.recv(1)          # only 1 character, to avoid reading from the next line
-            if End in data:
-                total_data.append(data[:data.find(End)])
-                break
-            total_data.append(data)
-            if len(total_data)>1:
-                #check if end_of_data was split
-                last_pair=total_data[-2]+total_data[-1]
-                if End in last_pair:
-                    total_data[-2]=last_pair[:last_pair.find(End)]
-                    total_data.pop()
-                    break
-    return ''.join(total_data)
-
-
-def getonelineMAKEFILE(s,command):
-    if command!='':
         s.send(command+"\n")        
     for line in s.makefile('r'):
        myline = line.rstrip()
        return myline   
 
 def getlinesuntildot(s,command):
-    if command!='':
-        s.send(command+"\r\n")
-    End="\r\n.\r\n"
-    total_data=[];data=''
-    while True:
-            data=s.recv(8192)
-            if End in data:
-                total_data.append(data[:data.find(End)])
-                break
-            total_data.append(data)
-            if len(total_data)>1:
-                #check if end_of_data was split
-                last_pair=total_data[-2]+total_data[-1]
-                if End in last_pair:
-                    total_data[-2]=last_pair[:last_pair.find(End)]
-                    total_data.pop()
-                    break
-    return ''.join(total_data)
-
-
-
-
-def getlinesuntildotMAKEFILE(s,command):
     if command!='':
         #print "INCOMING command:", command
         s.send(command+"\n") 
@@ -81,10 +37,10 @@ def getlinesuntildotMAKEFILE(s,command):
 
 def getbody(s,article):
     command = "BODY <" + article + ">\n"
-    result=getoneline(s,command)
-    #print "result of BODY command:", result
-    body = getlinesuntildot(s,'')
-    return result,body
+    result=getlinesuntildot(s,command)   
+    firstline = result.split("\n")[0]
+    body = "\n".join(result.split("\n")[1:]) + "\n"
+    return firstline,body
     
     
 ### MAIN ###
@@ -113,8 +69,6 @@ print "Welkom bericht:", getoneline(s,'')
 
 #print "DATE resultaat:", getoneline(s,'DATE')
 #print "HELP resultaat:", getlinesuntildot(s,'HELP')
-#print "LIST resultaat:", getlinesuntildot(s,'LIST')
-
 #print "BLABLA resultaat:", getoneline(s,'BLABLA')
 
 # Print out each file's subject and the first two segment message ids
@@ -130,10 +84,8 @@ for nzb_file in files:
     command = "GROUP " + group
     print "GROUP:", getoneline(s,command)
     for segment in nzb_file.segments:
-        print 'Segment to handle: ' + segment.message_id
+        print 'Segment to handle:' + segment.message_id
         result,body = getbody(s,segment.message_id)
-	print "result:", result
-	print "body (stukkie):", body[:100]
         counter += 1
         filename = resultdir + "/result---" + str(counter) + ".yenc"
         target = open(filename, 'w')
