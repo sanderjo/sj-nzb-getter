@@ -26,14 +26,6 @@ def getoneline(s,command):
                     break
     return ''.join(total_data)
 
-
-def getonelineMAKEFILE(s,command):
-    if command!='':
-        s.send(command+"\n")        
-    for line in s.makefile('r'):
-       myline = line.rstrip()
-       return myline   
-
 def getlinesuntildot(s,command):
     if command!='':
         s.send(command+"\r\n")
@@ -55,36 +47,26 @@ def getlinesuntildot(s,command):
     return ''.join(total_data)
 
 
-
-
-def getlinesuntildotMAKEFILE(s,command):
-    if command!='':
-        #print "INCOMING command:", command
-        s.send(command+"\n") 
-    lines = s.makefile('r')
-    linecounter=0
-    total=""
-    for line in lines:
-        linecounter += 1
-        myline = line.rstrip()
-        #print myline
-        if linecounter==1:
-            #print "Response:", myline
-            if myline.find('4')==0 or myline.find('5')==0:
-                # some error message
-                break
-        if myline.find('.')==0:
-            # the dot that indicates the end of the block, so ... :
-            break
-        total = total + myline + "\n"
-    return total
-
 def getbody(s,article):
     command = "BODY <" + article + ">\n"
     result=getoneline(s,command)
     #print "result of BODY command:", result
     body = getlinesuntildot(s,'')
     return result,body
+
+def connecttoserver(newsserver,port):
+	s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+	s.settimeout(2)
+	 
+	# connect to remote host
+	try :
+	    s.connect((newsserver,port))
+	except :
+	    print 'Unable to connect'
+	    sys.exit()
+	 
+	print 'Connected to remote host'
+	return s
     
     
 ### MAIN ###
@@ -96,17 +78,7 @@ nzbfilename = sys.argv[1]
 my_nzb = open(nzbfilename).read()
 files = nzb_parser.parse(my_nzb)
 
-s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-s.settimeout(2)
- 
-# connect to remote host
-try :
-    s.connect(('newszilla6.xs4all.nl',119))
-except :
-    print 'Unable to connect'
-    sys.exit()
- 
-print 'Connected to remote host'
+s=connecttoserver('newszilla6.xs4all.nl',119)
 
 # Get Welcome message:
 print "Welkom bericht:", getoneline(s,'')
@@ -118,7 +90,7 @@ print "Welkom bericht:", getoneline(s,'')
 #print "BLABLA resultaat:", getoneline(s,'BLABLA')
 
 # Print out each file's subject and the first two segment message ids
-counter=100000
+counter=100000	# for filename
 import time
 timestamp = int(time.time())
 resultdir = "result---" + str(timestamp)
