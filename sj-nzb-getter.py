@@ -6,6 +6,20 @@ import socket
 import sys
 import os
 
+def connecttoserver(newsserver,port):
+	s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+	s.settimeout(4)
+	 
+	# connect to remote host
+	try :
+	    s.connect((newsserver,port))
+	except :
+	    print 'Unable to connect'
+	    sys.exit()
+	 
+	print 'Connected to remote host'
+	return s
+
 def getoneline(s,command):
     if command!='':
         s.send(command+"\r\n")
@@ -30,9 +44,10 @@ def getlinesuntildot(s,command):
     if command!='':
         s.send(command+"\r\n")
     End="\r\n.\r\n"
-    total_data=[];data=''
+    total_data=[]
+    data=''
     while True:
-            data=s.recv(8192)
+            data=s.recv(8192)	# large chunk, as we're reading a large chunk result
             if End in data:
                 total_data.append(data[:data.find(End)])
                 break
@@ -48,25 +63,16 @@ def getlinesuntildot(s,command):
 
 
 def getbody(s,article):
+    body=''
     command = "BODY <" + article + ">\n"
     result=getoneline(s,command)
-    #print "result of BODY command:", result
-    body = getlinesuntildot(s,'')
+    print "result of BODY command:", result
+    # checking on the result...
+    if result.find('2')==0:
+		body = getlinesuntildot(s,'')
     return result,body
 
-def connecttoserver(newsserver,port):
-	s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-	s.settimeout(2)
-	 
-	# connect to remote host
-	try :
-	    s.connect((newsserver,port))
-	except :
-	    print 'Unable to connect'
-	    sys.exit()
-	 
-	print 'Connected to remote host'
-	return s
+
     
     
 ### MAIN ###
@@ -84,13 +90,13 @@ s=connecttoserver('newszilla6.xs4all.nl',119)
 print "Welkom bericht:", getoneline(s,'')
 
 #print "DATE resultaat:", getoneline(s,'DATE')
-#print "HELP resultaat:", getlinesuntildot(s,'HELP')
+print "HELP resultaat:", getlinesuntildot(s,'HELP')
 #print "LIST resultaat:", getlinesuntildot(s,'LIST')
 
 #print "BLABLA resultaat:", getoneline(s,'BLABLA')
 
 # Print out each file's subject and the first two segment message ids
-counter=100000	# for filename
+counter=100000	# for the filenames
 import time
 timestamp = int(time.time())
 resultdir = "result---" + str(timestamp)
