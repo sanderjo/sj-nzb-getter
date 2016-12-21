@@ -10,9 +10,11 @@ import sys
 import os
 
 def connecttoserver(newsserver,port=119, username='', password='' ):
-	s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+	print "port is", port
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.settimeout(4)
 	 
+
 	# connect to remote host
 	try :
 	    s.connect((newsserver,port))
@@ -66,7 +68,7 @@ def getlinesuntildot(s,command):
     total_data=[]
     data=''
     while True:
-            data=s.recv(8192)	# we're reading a large chunk
+            data=s.recv(256*1024)	# we're reading a large chunk
             if End in data:
                 total_data.append(data[:data.find(End)])
                 break
@@ -78,7 +80,9 @@ def getlinesuntildot(s,command):
                     total_data[-2]=last_pair[:last_pair.find(End)]
                     total_data.pop()
                     break
-    return ''.join(total_data)
+    #return 'blablala'*100000
+    #return ''.join(total_data)		# this is slow. Because of the join, or the data?
+    return str(total_data)	# fast enough. But is this the same as the join does? 
 
 def getbody(s,article):
     body=''
@@ -105,7 +109,7 @@ def downloadArticle(i, q):
     """
     print '%s: Thread started ...' % i
     print "Setting up stuff ..."
-    s,welcomemsg=connecttoserver('newszilla6.xs4all.nl',119)
+    s,welcomemsg=connecttoserver('127.0.0.1',1190)
     print "Welcome message from newsserver:", welcomemsg
 
     print "Value is pleasecontinue is", pleasecontinue
@@ -154,7 +158,7 @@ pleasecontinue = True
 
 
 # Set up threads:
-num_threads = 4
+num_threads = 12
 for i in range(num_threads):
     worker = Thread(target=downloadArticle, args=(i, articlequeue,))
     worker.setDaemon(True)
