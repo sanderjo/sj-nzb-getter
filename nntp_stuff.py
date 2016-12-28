@@ -6,20 +6,30 @@ import os
 debug = True
 
 def connecttoserver(newsserver,port=119, username='', password='' ):
-	# connectes to server
+	# this function connects to server
 	# returns the socket (to be reused), and the welcome message
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	# Ouch, no IPv6 here
-	s.settimeout(4)
-	
+
 	if debug:
 		print "newsserver is", newsserver 
 		print "port is", port
-	# connect to remote host
+
+	# connect to newsserver
+	# First IPv4:
 	try :
+	    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	    s.settimeout(4)
 	    s.connect((newsserver,port))
 	except :
-	    print 'Ouch .... Unable to connect'
-	    sys.exit()
+	    if debug:
+		print 'Ouch .... Unable to connect via IPv4'
+	    # ... now let's try IPv6:
+	    try :
+		    s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+		    s.settimeout(4)
+		    s.connect((newsserver,port))
+	    except :
+		    print 'Ouch .... Unable to connect via IPv6'
+		    return None, None
 	 
 	print 'Connected to remote host'
 	welcomemessage=getoneline(s,'')
@@ -126,6 +136,7 @@ if __name__ == '__main__':
 		mysocket, result = connecttoserver(server, port, username, password)
 	except:
 		print "Example usage: python nntp_stuff.py  newsreader.eweka.nl 66666 SeCrEt  "
+		print "Example usage: python nntp_stuff.py  newszilla6.xs4all.nl none none"
 		print "Example usage: python nntp_stuff.py  newsreader.eweka.nl 66666 SeCrEt  alt.binaries.mom 'part1of61.XPzUSVyOh2Nkek2ongtT@camelsystem-powerpost.local' "
 		print "Example usage: python nntp_stuff.py localhost:1190 bla bla alt.binaries.test   '400M-binnie.bin?10=4500000:500000' "
 		sys.exit(0)
