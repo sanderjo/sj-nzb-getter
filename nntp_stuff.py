@@ -65,6 +65,7 @@ def connecttoserver(newsserver,port=119, username='', password='' ):
 			if message[0] == '5':
 				# 502 Authentication Failed
 				print "Login failed"
+				s = None
 
 	return s, welcomemessage
 
