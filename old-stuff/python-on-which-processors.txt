@@ -1,0 +1,24 @@
+UID        PID  PPID  C    SZ   RSS PSR STIME TTY          TIME CMD
+sander    5593  6322  7 35886 18592   1 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5658  5593  3 36603 15140   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5659  5593  4 36603 15140   1 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5660  5593  4 36853 16012   1 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5661  5593  3 36607 15156   3 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5662  5593  4 36734 15388   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5663  5593  4 36734 15500   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5664  5593  4 36735 15548   0 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5665  5593  3 36727 15536   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5666  5593  4 36730 15512   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5669  5593  4 36730 15548   3 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5670  5593  4 36730 15548   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5671  5593  4 36607 15168   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5672  5593  4 36859 15932   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5673  5593  4 36734 15548   1 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5676  5593  4 36861 16060   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5677  5593  4 36738 15568   3 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5680  5593  4 36738 15568   1 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5682  5593  4 36611 15188   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5683  5593  4 36738 15568   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5684  5593  4 36611 15064   2 01:21 pts/14   00:00:00 python nzb-getter-multi-core-1.py localhost:1190 20 NoUsername NoPassword /home/sander/nzbget18/nzbget/content-dir/poging2.nzb
+sander    5708  3042  0 138199 16068  1 dec28 ?        00:00:01 /usr/bin/python /usr/lib/ubuntuone-client/ubuntuone-syncdaemon
+sander    5746 24829  0  3306  2444   3 01:21 pts/18   00:00:00 grep --color=auto -e PSR -e python

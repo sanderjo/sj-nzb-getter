@@ -112,7 +112,7 @@ def getlinesuntildot(s,command):
 
 def getbody(s,article):
     body=''
-    command = "BODY <" + article + ">\n"
+    command = "BODY <" + article + ">"
     result=getoneline(s,command)
     print "result of BODY command:", result
     # checking on the result...
@@ -122,8 +122,6 @@ def getbody(s,article):
 
 
 if __name__ == '__main__':
-	# just something
-	#print connecttoserver('newszilla.xs4all.nl')
 
 	try:
 		server = sys.argv[1].split(':')[0]

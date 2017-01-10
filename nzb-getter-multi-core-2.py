@@ -46,8 +46,8 @@ def worker(num, newsserver, q):
         target.write(body)
         target.close()
 
-    # to do: disconnect nicely, with a QUIT
-    #getoneline(s,"QUIT")
+    # Disconnect nicely, with a QUIT
+    getoneline(s,"QUIT")
     return
 
 class Job(object):

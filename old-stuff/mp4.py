@@ -93,7 +93,6 @@ if __name__ == '__main__':
 	os.mkdir(resultdir)	# create directory to store the retrieved files
 	counter=100000	# for the filenames
 
-
 	# Fill queue with articles to be fetched:
 	my_nzb = open(nzbfilename).read()
 	files = nzb_parser.parse(my_nzb)
